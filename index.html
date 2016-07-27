@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cheenbee.github.io"></form>
@@ -85,14 +85,13 @@
       
         <p>参考了许多网上的教程,终于搭建出属于自己的个人博客,在此记录下遇到的一些问题及流程</p>
 <h5 id="缠绕的问题"><a href="#缠绕的问题" class="headerlink" title="缠绕的问题"></a>缠绕的问题</h5><pre><code>1. 需不需要建立 github-pages 分支,答案是 不需要
-2. 在完成所有的操作后需要手动git push到主分支吗,  
-结果是根本不需要将github上的仓库clone到本地,在本  
-地任意文件夹下配置好deploy参数之后,只需执行   
-hexo g -d  即可自动commit,push到github上(后面会提到一个站点配置文件)
+2. 在完成所有的操作后需要手动git push到主分支吗,结果是根本不需要将  
+github上的仓库clone到本地,在本地任意文件夹下配置好deploy参数之后,只  
+需执行hexo g -d 可自动commit,push到github上(后面会提到一个站点配置文件)
 </code></pre><h5 id="搭建流程"><a href="#搭建流程" class="headerlink" title="搭建流程"></a>搭建流程</h5><ul>
-<li><p>在<a href="https://github.com" target="_blank" rel="external">github</a>的操作</p>
+<li><p>在 <a href="https://github.com" target="_blank" rel="external">github</a> 的操作</p>
 <ul>
-<li>注册账号并创建一个名称为 username.github.io 的仓库,此处的username为你注册账号的用户名,<a href="https://pages.github.com/" target="_blank" rel="external">参考地址</a></li>
+<li>注册账号并创建一个名称为 username.github.io 的仓库,此处的username为你注册账号的用户名, <a href="https://pages.github.com/" target="_blank" rel="external">参考地址</a></li>
 <li>通过 SSH Key 与本地建立 git 链接 <a href="https://help.github.com/articles/generating-an-ssh-key/" target="_blank" rel="external">Generating an SSH key</a></li>
 <li><a href="https://github.com/xirong/my-git" target="_blank" rel="external">git的学习资料</a></li>
 </ul>
@@ -105,7 +104,7 @@ hexo g -d  即可自动commit,push到github上(后面会提到一个站点配置
 <li><p>在本地任意新建一个博客目录在此举例名为Blog,在终端 cd 到 Blog 目录执行如下命令<br> </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ hexo init</div><div class="line">$ npm install</div><div class="line">$ hexo g # 或者hexo generate </div><div class="line">$ hexo s # 或者hexo server，可以在http://localhost:4000/ 查看</div></pre></td></tr></table></figure>
 </li>
-<li><p>博客架构有了,还需要搭配一个漂亮主题,在此我是用的是NEXT主题,可以到<a href="https://hexo.io/themes/" target="_blank" rel="external">HEXO Themes</a>查看使用你自己喜欢的主题</p>
+<li><p>博客架构有了,还需要搭配一个漂亮主题,在此我是用的是NEXT主题,可以到 <a href="https://hexo.io/themes/" target="_blank" rel="external">HEXO Themes</a> 查看使用你自己喜欢的主题</p>
 </li>
 <li>在命令行Blog目录下clone主题到themes目录下<br><br><code>git clone https://github.com/iissnan/hexo-theme-next.git themes/NEXT</code></li>
 <li>Blog目录下有一个站点配置文件 <strong>_config.yml</strong>, 打开此文件,更改theme字段为 <strong>theme: NEXT</strong>,</li>
@@ -122,18 +121,18 @@ hexo g -d  即可自动commit,push到github上(后面会提到一个站点配置
 </li>
 </ul>
 </li>
-<li><p>自定义博客功能如多说评论,搜索,站长统计,修改外观等,直接参考<a href="http://theme-next.iissnan.com" target="_blank" rel="external">NEXT主题使用文档</a>,应有尽有</p>
+<li><p>自定义博客功能如多说评论,搜索,站长统计,修改外观等,直接参考 <a href="http://theme-next.iissnan.com" target="_blank" rel="external">NEXT主题使用文档</a> ,应有尽有</p>
 </li>
-<li><p>hexo n “文章名” 即可在Blog/source/_post/文件夹下 创建 文件名.md文件</p>
+<li><p>hexo n “文章名” 即可在Blog/source/_post/文件夹下 创建 文件名.md文件,hexo 支持 <a href="https://github.com/riku/Markdown-Syntax-CN/blob/master/syntax.md#img" target="_blank" rel="external">markdown语法</a></p>
 </li>
 <li>hexo g -d 即可发布文章</li>
-<li>域名转换可参考<a href="http://cnfeat.com/blog/2014/05/10/how-to-build-a-blog/" target="_blank" rel="external">如何搭建一个独立博客——简明 Github Pages与 jekyll 教程</a><br>#####建站参考资料<br><a href="http://blog.devtang.com/2016/02/16/from-octopress-to-hexo/" target="_blank" rel="external">从 Octopress 迁移到 Hexo</a><br><br><a href="http://www.jianshu.com/p/05289a4bc8b2" target="_blank" rel="external">如何搭建一个独立博客——简明Github Pages与Hexo教程</a><br><br><a href="https://wingjay.com/2015/12/07/如何在一天之内搭建以你自己名字为域名的很cool的个人博客/" target="_blank" rel="external">如何在一天之内搭建以你自己名字为域名的很cool的个人博客</a><br><br><a href="http://jiji262.github.io/2016/04/15/2016-04-15-hexo-github-pages-blog/" target="_blank" rel="external">手把手教你使用Hexo + Github Pages搭建个人独立博客</a><br><br><a href="http://kiya.space/2015/11/10/use-Github-Pages-Hexo-duoshuo-to-set-up-a-blog-basic-steps/" target="_blank" rel="external">使用 Github Pages + Hexo + 多说 搭建博客全过程 - 基础篇</a><br></li>
+<li>域名转换可参考 <a href="http://cnfeat.com/blog/2014/05/10/how-to-build-a-blog/" target="_blank" rel="external">如何搭建一个独立博客——简明 Github Pages与 jekyll 教程</a><h5 id="建站参考资料"><a href="#建站参考资料" class="headerlink" title="建站参考资料"></a>建站参考资料</h5><a href="http://blog.devtang.com/2016/02/16/from-octopress-to-hexo/" target="_blank" rel="external">从 Octopress 迁移到 Hexo</a><br><br><a href="http://www.jianshu.com/p/05289a4bc8b2" target="_blank" rel="external">如何搭建一个独立博客——简明Github Pages与Hexo教程</a><br><br><a href="https://wingjay.com/2015/12/07/如何在一天之内搭建以你自己名字为域名的很cool的个人博客/" target="_blank" rel="external">如何在一天之内搭建以你自己名字为域名的很cool的个人博客</a><br><br><a href="http://jiji262.github.io/2016/04/15/2016-04-15-hexo-github-pages-blog/" target="_blank" rel="external">手把手教你使用Hexo + Github Pages搭建个人独立博客</a><br><br><a href="http://kiya.space/2015/11/10/use-Github-Pages-Hexo-duoshuo-to-set-up-a-blog-basic-steps/" target="_blank" rel="external">使用 Github Pages + Hexo + 多说 搭建博客全过程 - 基础篇</a><br></li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cheenbee.github.io/2014/07/27/使用-Github-Pages-和-Hexo-搭建个人博客/" data-id="cir47zi4p0000xzsl9p0unzbo" class="article-share-link">Partager</a>
+      <a data-url="http://cheenbee.github.io/2014/07/27/使用-Github-Pages-和-Hexo-搭建个人博客/" data-id="cir47zi4p0000xzsl9p0unzbo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -168,7 +167,7 @@ hexo g -d  即可自动commit,push到github上(后面会提到一个站点配置
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
@@ -189,7 +188,7 @@ hexo g -d  即可自动commit,push到github上(后面会提到一个站点配置
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2016 Bing Chen<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
