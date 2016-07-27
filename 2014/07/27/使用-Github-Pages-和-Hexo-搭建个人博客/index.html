@@ -19,7 +19,7 @@ github上的仓库clone到本地,在本地任意文件夹下配置好deploy参�
 2. 在完成所有的操作后需要手动git push到主分支吗,结果是根本不需要将  
 github上的仓库clone到本地,在本地任意文件夹下配置好deploy参数之后,只  
 需执行hexo g -d 可自动commit,push到git">
-<meta property="og:updated_time" content="2016-07-27T01:57:34.000Z">
+<meta property="og:updated_time" content="2016-07-27T01:58:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 Github Pages 和 Hexo 搭建个人博客">
 <meta name="twitter:description" content="参考了许多网上的教程,终于搭建出属于自己的个人博客,在此记录下遇到的一些问题及流程
@@ -112,9 +112,7 @@ github上的仓库clone到本地,在本地任意文件夹下配置好deploy参�
 </li>
 <li><p>本地电脑端的操作</p>
 <ul>
-<li><p>安装 HEXO 参考 <a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="external">hexo文档</a> 依次按顺序来完成即可完成建站, <a href="http://nodejs.org" target="_blank" rel="external">Node.js</a> 和 <a href="https://git-scm.com" target="_blank" rel="external">git</a> ,再使用终端命令安装 hexo <br></p>
-<figure class="highlight plain"><figcaption><span>npm install -g hexo-cli </span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">	</div></pre></td></tr></table></figure>
-</li>
+<li>安装 HEXO 参考 <a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="external">hexo文档</a> 依次按顺序来完成即可完成建站, <a href="http://nodejs.org" target="_blank" rel="external">Node.js</a> 和 <a href="https://git-scm.com" target="_blank" rel="external">git</a> ,再使用终端命令安装 hexo <br><br><code>$ npm install -g hexo-cli</code></li>
 <li><p>在本地任意新建一个博客目录在此举例名为Blog,在终端 cd 到 Blog 目录执行如下命令<br> </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ hexo init</div><div class="line">$ npm install</div><div class="line">$ hexo g # 或者hexo generate </div><div class="line">$ hexo s # 或者hexo server，可以在http://localhost:4000/ 查看</div></pre></td></tr></table></figure>
 </li>
