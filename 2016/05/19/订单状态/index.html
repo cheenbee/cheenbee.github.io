@@ -84,12 +84,28 @@
 
 
 
-<meta property="og:type" content="website">
+<meta name="description" content="订单状态新订单：status=1/7待收货：status=2待退款：status=8全部：status=1/2/7/8退款中：status = 10 已完成：status=11/status=4/（statu=7 and whetherCheck=0）
+
+status = 5 系统取消订单, 0的是待支付订单（0的时候先暂时不考虑，需产品确认）
+
+新订单：status=1 | （status=7&amp;">
+<meta property="og:type" content="article">
 <meta property="og:title" content="林中小屋前的湖">
-<meta property="og:url" content="http://cheenbee.github.io/archives/2014/07/index.html">
+<meta property="og:url" content="http://cheenbee.github.io/2016/05/19/订单状态/index.html">
 <meta property="og:site_name" content="林中小屋前的湖">
+<meta property="og:description" content="订单状态新订单：status=1/7待收货：status=2待退款：status=8全部：status=1/2/7/8退款中：status = 10 已完成：status=11/status=4/（statu=7 and whetherCheck=0）
+
+status = 5 系统取消订单, 0的是待支付订单（0的时候先暂时不考虑，需产品确认）
+
+新订单：status=1 | （status=7&amp;">
+<meta property="og:updated_time" content="2016-05-19T01:57:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="林中小屋前的湖">
+<meta name="twitter:description" content="订单状态新订单：status=1/7待收货：status=2待退款：status=8全部：status=1/2/7/8退款中：status = 10 已完成：status=11/status=4/（statu=7 and whetherCheck=0）
+
+status = 5 系统取消订单, 0的是待支付订单（0的时候先暂时不考虑，需产品确认）
+
+新订单：status=1 | （status=7&amp;">
 
 
 
@@ -110,9 +126,9 @@
 
 
 
-  <link rel="canonical" href="http://cheenbee.github.io/archives/2014/07/"/>
+  <link rel="canonical" href="http://cheenbee.github.io/2016/05/19/订单状态/"/>
 
-  <title> 归档 | 林中小屋前的湖 </title>
+  <title>  | 林中小屋前的湖 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -133,7 +149,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -211,66 +227,142 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 12 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
 
-      
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-19T09:57:39+08:00" content="2016-05-19">
+              2016-05-19
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
+        <h1 id="订单状态"><a href="#订单状态" class="headerlink" title="订单状态"></a>订单状态</h1><p>新订单：status=1/7<br>待收货：status=2<br>待退款：status=8<br>全部：status=1/2/7/8<br>退款中：status = 10 已完成：status=11/status=4/（statu=7 and whetherCheck=0）</p>
+<ul>
+<li>status = 5 系统取消订单, 0的是待支付订单（0的时候先暂时不考虑，需产品确认）</li>
+</ul>
+<p>新订单：status=1 | （status=7&amp;whetherCheck=0）<br>待收货：status=2<br>待退款：status=8<br>已完成：status=11 | status=4 |（status=7&amp;whetherCheck=1）<br>全部：status=1/2/7/8</p>
+<p>选中对应的 标题 加载对应的 view<br>底部滚动也如此</p>
+<p>/order/getOrdersListById.do</p>
+<pre><code>餐饮详情刷新
+
+商品详情库存判断需要结合购物车内的商品  192323788
+
+使用优惠券调整与餐饮库存不足提示
+
+订单状态
+自取
+ 接单  (准备中)
+ 完成  (已取货)--&gt;自取
+送货     
+ 接单 (准备中)
+ 发货 (已发货)
+ 完成 (已收货)
+</code></pre><p>  待退款<br>          接单  审核  完成 </p>
+<p>遍历数组时  删除此数组中的某一元素  是否会影响此数组的遍历次数</p>
+
+      
+    </div>
+
+    <div>
+      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2014">2014</h2>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/02/应用内购买(虚拟物品篇)/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/23/项目打包/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
         </div>
       
-      
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2014/07/27/使用-Github-Pages-和-Hexo-搭建个人博客/" itemprop="url">
-              
-                <span itemprop="name">使用 Github Pages 和 Hexo 搭建个人博客</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2014-07-27T09:34:47+08:00"
-              content="2014-07-27" >
-          07-27
-        </time>
-      </div>
-
-    </header>
+      
+    </footer>
   </article>
 
 
 
-    
-
-  </section>
-
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -278,6 +370,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -297,8 +393,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -334,6 +439,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#订单状态"><span class="nav-number">1.</span> <span class="nav-text">订单状态</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -430,11 +546,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   
