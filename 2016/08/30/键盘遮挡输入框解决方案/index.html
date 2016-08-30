@@ -84,28 +84,16 @@
 
 
 
-<meta name="description" content="isa 是什么 先来看一下 isa 指针所处的位置 查看objc/runtime.h中objc_class结构体: 在 objc.h 中可以查找到 Class 是一个 objc_class 结构体类型指针:An opaque type that represents an Objective-C class.  1typedef struct objc_class *Class;
-
-
-而 isa">
+<meta name="description" content="监听键盘弹起与隐藏通知,动态更改相应输入框的frame使用第三方 IQKeyBoardManager">
 <meta property="og:type" content="article">
-<meta property="og:title" content="isa 指针">
-<meta property="og:url" content="http://cheenbee.github.io/2016/08/02/isa-指针/index.html">
+<meta property="og:title" content="键盘遮挡输入框解决方案">
+<meta property="og:url" content="http://cheenbee.github.io/2016/08/30/键盘遮挡输入框解决方案/index.html">
 <meta property="og:site_name" content="林中小屋前的湖">
-<meta property="og:description" content="isa 是什么 先来看一下 isa 指针所处的位置 查看objc/runtime.h中objc_class结构体: 在 objc.h 中可以查找到 Class 是一个 objc_class 结构体类型指针:An opaque type that represents an Objective-C class.  1typedef struct objc_class *Class;
-
-
-而 isa">
-<meta property="og:image" content="http://obr2ozlb6.bkt.clouddn.com/14712708907916.jpg">
-<meta property="og:image" content="http://obr2ozlb6.bkt.clouddn.com/14712763926115.jpg">
-<meta property="og:updated_time" content="2016-08-16T02:21:45.000Z">
+<meta property="og:description" content="监听键盘弹起与隐藏通知,动态更改相应输入框的frame使用第三方 IQKeyBoardManager">
+<meta property="og:updated_time" content="2016-08-30T15:25:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="isa 指针">
-<meta name="twitter:description" content="isa 是什么 先来看一下 isa 指针所处的位置 查看objc/runtime.h中objc_class结构体: 在 objc.h 中可以查找到 Class 是一个 objc_class 结构体类型指针:An opaque type that represents an Objective-C class.  1typedef struct objc_class *Class;
-
-
-而 isa">
-<meta name="twitter:image" content="http://obr2ozlb6.bkt.clouddn.com/14712708907916.jpg">
+<meta name="twitter:title" content="键盘遮挡输入框解决方案">
+<meta name="twitter:description" content="监听键盘弹起与隐藏通知,动态更改相应输入框的frame使用第三方 IQKeyBoardManager">
 
 
 
@@ -126,9 +114,9 @@
 
 
 
-  <link rel="canonical" href="http://cheenbee.github.io/2016/08/02/isa-指针/"/>
+  <link rel="canonical" href="http://cheenbee.github.io/2016/08/30/键盘遮挡输入框解决方案/"/>
 
-  <title> isa 指针 | 林中小屋前的湖 </title>
+  <title> 键盘遮挡输入框解决方案 | 林中小屋前的湖 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -248,7 +236,7 @@
             
             
               
-                isa 指针
+                键盘遮挡输入框解决方案
               
             
           </h1>
@@ -260,8 +248,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-02T22:19:56+08:00" content="2016-08-02">
-              2016-08-02
+            <time itemprop="dateCreated" datetime="2016-08-30T23:20:34+08:00" content="2016-08-30">
+              2016-08-30
             </time>
           </span>
 
@@ -271,8 +259,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/02/isa-指针/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/02/isa-指针/" itemprop="commentsCount"></span>
+                <a href="/2016/08/30/键盘遮挡输入框解决方案/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/30/键盘遮挡输入框解决方案/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -295,13 +283,7 @@
       
 
       
-        <ol>
-<li>isa 是什么<br> 先来看一下 isa 指针所处的位置<br> 查看objc/runtime.h中objc_class结构体:<br> <img src="http://obr2ozlb6.bkt.clouddn.com/14712708907916.jpg" alt=""><br>在 objc.h 中可以查找到 Class 是一个 objc_class 结构体类型指针:<figure class="highlight plain"><figcaption><span>An opaque type that represents an Objective-C class.  </span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">typedef struct objc_class *Class;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>而 isa 是一个 Class 类型的指针<br><img src="http://obr2ozlb6.bkt.clouddn.com/14712763926115.jpg" alt=""></p>
-<p>参考<br>    <a href="http://southpeak.github.io/blog/2014/10/25/objective-c-runtime-yun-xing-shi-zhi-lei-yu-dui-xiang/" target="_blank" rel="external">Objective-C Runtime 运行时之一：类与对象</a> by 南峰子</p>
-
+        <h6 id="监听键盘弹起与隐藏通知-动态更改相应输入框的frame"><a href="#监听键盘弹起与隐藏通知-动态更改相应输入框的frame" class="headerlink" title="监听键盘弹起与隐藏通知,动态更改相应输入框的frame"></a>监听键盘弹起与隐藏通知,动态更改相应输入框的frame</h6><h5 id="使用第三方-IQKeyBoardManager"><a href="#使用第三方-IQKeyBoardManager" class="headerlink" title="使用第三方 IQKeyBoardManager"></a>使用第三方 IQKeyBoardManager</h5>
       
     </div>
 
@@ -326,17 +308,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/29/Blocks的使用/" rel="next" title="Blocks的使用">
-                <i class="fa fa-chevron-left"></i> Blocks的使用
+              <a href="/2016/08/02/isa-指针/" rel="next" title="isa 指针">
+                <i class="fa fa-chevron-left"></i> isa 指针
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/30/键盘遮挡输入框解决方案/" rel="prev" title="键盘遮挡输入框解决方案">
-                键盘遮挡输入框解决方案 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -362,8 +340,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/02/isa-指针/"
-           data-title="isa 指针" data-url="http://cheenbee.github.io/2016/08/02/isa-指针/">
+      <div class="ds-thread" data-thread-key="2016/08/30/键盘遮挡输入框解决方案/"
+           data-title="键盘遮挡输入框解决方案" data-url="http://cheenbee.github.io/2016/08/30/键盘遮挡输入框解决方案/">
       </div>
     
   </div>
@@ -440,7 +418,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#监听键盘弹起与隐藏通知-动态更改相应输入框的frame"><span class="nav-number">1.</span> <span class="nav-text">监听键盘弹起与隐藏通知,动态更改相应输入框的frame</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用第三方-IQKeyBoardManager"><span class="nav-number"></span> <span class="nav-text">使用第三方 IQKeyBoardManager</span></a></div>
             
           </div>
         </section>
