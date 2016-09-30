@@ -256,6 +256,118 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/30/pod-search-XXX-仓库版本低于-Github-仓库版本/" itemprop="url">
+                  pod search XXX 仓库版本低于 Github 仓库版本
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-30T17:05:02+08:00" content="2016-09-30">
+              2016-09-30
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="pod-search-XXX-仓库版本低于-Github-仓库版本"><a href="#pod-search-XXX-仓库版本低于-Github-仓库版本" class="headerlink" title="pod search XXX 仓库版本低于 Github 仓库版本"></a>pod search XXX 仓库版本低于 Github 仓库版本</h2><p>XXX 为第三方库的名字,以 pod search SDWebImage 为例</p>
+<p>本地终端命令进行搜索,显示最最新版本为 3.7.3<br><img src="http://obr2ozlb6.bkt.clouddn.com/14752042330301.jpg" alt=""></p>
+<p>而 github 上的SDWebImage已经更新到了 3.8 版本<br><img src="http://obr2ozlb6.bkt.clouddn.com/14752193391208.jpg" alt=""></p>
+<p>前因:Cocoapods 在安装时会将第三方库的索引下载到本地 <strong>~/.cocoapods/repos/master/Specs</strong>目录下<br><img src="http://obr2ozlb6.bkt.clouddn.com/14752214374894.jpg" alt=""><br>我们在本地搜索的时候搜到只是 cocoapods 安装时下载到本地的索引,搜索不到最新版本,是因为 Cocoapods 镜像索引库更新了,而本地的索引库却没更新!<br>前往 <strong>~/.cocoapods/repos/master</strong> 目录下查看 <strong>CocoaPods-version.yml</strong> 确认本地Cocoapods的版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">min: 0.32.1</div><div class="line">last: 0.39.0</div><div class="line">```    </div><div class="line">再来到 [github上的Cocoapods版本描述](https://github.com/CocoaPods/Specs/blob/master/CocoaPods-version.yml)查看Cocoapods最新的版本描述,明显是本地的Cocoapods版本过低</div><div class="line">    ![](http://obr2ozlb6.bkt.clouddn.com/14752035139251.jpg)</div><div class="line">        </div><div class="line">解决方法:</div><div class="line">    1. [更新本地索引库 ](https://guides.cocoapods.org/terminal/commands.html#pod_repo_update)   </div><div class="line">` $ pod repo update `     </div><div class="line">    2. 升级 Cocoapods</div></pre></td></tr></table></figure></p>
+<pre><code>$ sudo gem update --system
+$ gem sources --remove https://rubygems.org/ 
+$ gem sources -a https://ruby.taobao.org/ 
+$ sudo gem install cocoapods
+$ pod setup
+```    
+3. 卸载 重装         
+</code></pre><p>   <code>sudo gem uninstall cocoapods</code><br>    重复第二种方法安装Cocoapods    </p>
+<p>再次 <code>$ pod search SDWebimage</code> 已成功搜索到 SDWebimage 3.8.1 版本<br><img src="http://obr2ozlb6.bkt.clouddn.com/14752256205791.jpg" alt=""></p>
+<p>#####参考链接<br><a href="https://github.com/dabing1022/Blog/issues/3" target="_blank" rel="external">解决pod search出来的仓库版本低于github仓库版本的方法</a></p>
+<p><a href="http://stackoverflow.com/questions/16427421/how-to-remove-cocoapods-from-a-project?rq=1" target="_blank" rel="external">从项目中移除 CocoaPods</a></p>
+<p><a href="http://nshipster.cn/cocoapods/" target="_blank" rel="external">NSHipster 上对Cocoa​Pods的介绍与使用</a></p>
+<p><a href="https://guides.cocoapods.org/terminal/commands.html#commands" target="_blank" rel="external">Cocoapods官方命令使用</a></p>
+<p><a href="http://cocoadocs.org/" target="_blank" rel="external">第三方库在Cocoapodss上的使用文档</a></p>
+<p><a href="http://www.jianshu.com/p/b64b4fd08d3c" target="_blank" rel="external">最新Mac OS X 10.11.1 安装cocoapods及使用详解</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/30/键盘遮挡输入框解决方案/" itemprop="url">
                   键盘遮挡输入框解决方案
                 </a>
@@ -698,7 +810,7 @@ github上的仓库clone到本地,在本地任意文件夹下配置好deploy参�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
