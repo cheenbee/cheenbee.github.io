@@ -117,9 +117,8 @@
 <meta property="og:image" content="http://obr2ozlb6.bkt.clouddn.com/14752042330301.jpg">
 <meta property="og:image" content="http://obr2ozlb6.bkt.clouddn.com/14752193391208.jpg">
 <meta property="og:image" content="http://obr2ozlb6.bkt.clouddn.com/14752214374894.jpg">
-<meta property="og:image" content="http://obr2ozlb6.bkt.clouddn.com/14752035139251.jpg">
 <meta property="og:image" content="http://obr2ozlb6.bkt.clouddn.com/14752256205791.jpg">
-<meta property="og:updated_time" content="2016-09-30T09:33:54.000Z">
+<meta property="og:updated_time" content="2016-09-30T09:43:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pod search XXX 仓库版本低于 Github 仓库版本">
 <meta name="twitter:description" content="pod search XXX 仓库版本低于 Github 仓库版本XXX 为第三方库的名字,以 pod search SDWebImage 为例
@@ -312,19 +311,14 @@
         <h2 id="pod-search-XXX-仓库版本低于-Github-仓库版本"><a href="#pod-search-XXX-仓库版本低于-Github-仓库版本" class="headerlink" title="pod search XXX 仓库版本低于 Github 仓库版本"></a>pod search XXX 仓库版本低于 Github 仓库版本</h2><p>XXX 为第三方库的名字,以 pod search SDWebImage 为例</p>
 <p>本地终端命令进行搜索,显示最最新版本为 3.7.3<br><img src="http://obr2ozlb6.bkt.clouddn.com/14752042330301.jpg" alt=""></p>
 <p>而 github 上的SDWebImage已经更新到了 3.8 版本<br><img src="http://obr2ozlb6.bkt.clouddn.com/14752193391208.jpg" alt=""></p>
-<p>原因:Cocoapods 在安装时会将第三方库的索引下载到本地 <strong>~/.cocoapods/repos/master/Specs</strong>目录下<br><img src="http://obr2ozlb6.bkt.clouddn.com/14752214374894.jpg" alt=""><br>我们在本地搜索的时候搜到只是 cocoapods 安装时下载到本地的索引,搜索不到最新版本,是因为 Cocoapods 镜像索引库更新了,而本地的索引库却没更新!<br>前往 <strong>~/.cocoapods/repos/master</strong> 目录下查看 <strong>CocoaPods-version.yml</strong> 确认本地Cocoapods的版本<br><code>min: 0.32.1     
-last: 0.39.0</code> </p>
-<p>再来到 <a href="https://github.com/CocoaPods/Specs/blob/master/CocoaPods-version.yml" target="_blank" rel="external">github上的Cocoapods版本描述</a>查看Cocoapods最新的版本描述,明显是本地的Cocoapods版本过低<br>    <img src="http://obr2ozlb6.bkt.clouddn.com/14752035139251.jpg" alt=""></p>
-<p>解决方法:</p>
-<ol>
-<li><a href="https://guides.cocoapods.org/terminal/commands.html#pod_repo_update" target="_blank" rel="external">更新本地索引库 </a><br><code>$ pod repo update</code>         </li>
-<li><p>升级 Cocoapods     </p>
-<p><code>$ sudo gem update --system        
- $ gem sources --remove https://rubygems.org/           
- $ gem sources -a https://ruby.taobao.org/              
- $ sudo gem install cocoapods              
- $ pod setup</code>           </p>
-</li>
+<p>原因:Cocoapods 在安装时会将第三方库的索引下载到本地 <strong>~/.cocoapods/repos/master/Specs</strong>目录下<br><img src="http://obr2ozlb6.bkt.clouddn.com/14752214374894.jpg" alt=""><br>我们在本地搜索的时候搜到只是 cocoapods 安装时下载到本地的索引,搜索不到最新版本,是因为 Cocoapods 镜像索引库更新了,而本地的索引库却没更新!<br>前往 <strong>~/.cocoapods/repos/master</strong> 目录下查看 <strong>CocoaPods-version.yml</strong> 确认本地Cocoapods的版本<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">    min: 0.32.1     </div><div class="line">	last: 0.39.0 </div><div class="line">    ``` </div><div class="line"></div><div class="line">再来到 [github上的Cocoapods版本描述](https://github.com/CocoaPods/Specs/blob/master/CocoaPods-version.yml)查看Cocoapods最新的版本描述,明显是本地的Cocoapods版本过低</div><div class="line">    ![](http://obr2ozlb6.bkt.clouddn.com/14752035139251.jpg)</div><div class="line">        </div><div class="line">解决方法:</div><div class="line">1. [更新本地索引库 ](https://guides.cocoapods.org/terminal/commands.html#pod_repo_update)   </div><div class="line">`$ pod repo update`         </div><div class="line">2. 升级 Cocoapods</div></pre></td></tr></table></figure></p>
+<pre><code> $ sudo gem update --system       
+$ gem sources --remove https://rubygems.org/           
+$ gem sources -a https://ruby.taobao.org/              
+$ sudo gem install cocoapods              
+$ pod setup 
+``` 
+</code></pre><ol>
 <li>卸载 重装<br><code>sudo gem uninstall cocoapods</code><br> 重复第二种方法安装Cocoapods    </li>
 </ol>
 <p>再次 <code>$ pod search SDWebimage</code> 已成功搜索到 SDWebimage 3.8.1 版本<br><img src="http://obr2ozlb6.bkt.clouddn.com/14752256205791.jpg" alt=""></p>
