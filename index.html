@@ -308,15 +308,13 @@ last: 0.39.0</code> </p>
 <p>再来到 <a href="https://github.com/CocoaPods/Specs/blob/master/CocoaPods-version.yml" target="_blank" rel="external">github上的Cocoapods版本描述</a>查看Cocoapods最新的版本描述,明显是本地的Cocoapods版本过低<br>    <img src="http://obr2ozlb6.bkt.clouddn.com/14752035139251.jpg" alt=""></p>
 <p>解决方法:</p>
 <ol>
-<li><a href="https://guides.cocoapods.org/terminal/commands.html#pod_repo_update" target="_blank" rel="external">更新本地索引库 </a><br><code>$ pod repo update</code>     <ol>
-<li>升级 Cocoapods<br><code>$ sudo gem update --system
-$ gem sources --remove https://rubygems.org/ 
-$ gem sources -a https://ruby.taobao.org/ 
-$ sudo gem install cocoapods
-$ pod setup</code>   </li>
-<li>卸载 重装<br><code>sudo gem uninstall cocoapods</code><br>重复第二种方法安装Cocoapods    </li>
-</ol>
-</li>
+<li><a href="https://guides.cocoapods.org/terminal/commands.html#pod_repo_update" target="_blank" rel="external">更新本地索引库 </a><br><code>$ pod repo update</code>         </li>
+<li>升级 Cocoapods<br> <code>$ sudo gem update --system        
+ $ gem sources --remove https://rubygems.org/           
+ $ gem sources -a https://ruby.taobao.org/              
+ $ sudo gem install cocoapods              
+ $ pod setup</code>   </li>
+<li>卸载 重装<br><code>sudo gem uninstall cocoapods</code><br> 重复第二种方法安装Cocoapods    </li>
 </ol>
 <p>再次 <code>$ pod search SDWebimage</code> 已成功搜索到 SDWebimage 3.8.1 版本<br><img src="http://obr2ozlb6.bkt.clouddn.com/14752256205791.jpg" alt=""></p>
 <p>#####参考链接<br><a href="https://github.com/dabing1022/Blog/issues/3" target="_blank" rel="external">解决pod search出来的仓库版本低于github仓库版本的方法</a></p>
