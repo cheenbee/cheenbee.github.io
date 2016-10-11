@@ -256,8 +256,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/10/11/Mac-OS-X-El-Capitan-下安装-Scrapy/" itemprop="url">
-                  未命名
+                <a class="post-title-link" href="/2016/10/10/Mac-OS-X-El-Capitan-下安装-Scrapy/" itemprop="url">
+                  Mac OS X El Capitan 下安装 Scrapy
                 </a>
               
             
@@ -270,8 +270,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-11T10:11:22+08:00" content="2016-10-11">
-              2016-10-11
+            <time itemprop="dateCreated" datetime="2016-10-10T17:00:00+08:00" content="2016-10-10">
+              2016-10-10
             </time>
           </span>
 
@@ -305,7 +305,7 @@
 <h5 id="原因"><a href="#原因" class="headerlink" title="原因:"></a>原因:</h5><p> “OSError: [Errno 1] Operation not permitted” when installing Scrapy in OSX 10.11 (El Capitan) (System Integrity Protection).<br>  This is because OS X El Capitan ships with six 1.4.1 installed already and when it attempts to uninstall it (because awscli depends on botocore, botocore depends on python-dateutil, and python-dateutil depends on six &gt;= 1.5) it doesn’t have permission to do so because System Integrity Protection doesn’t allow even root to modify those directories.<br>  Ideally, pip should just skip uninstalling those items since they aren’t installed to site-packages they are installed to a special Apple directory. However, even if pip skips uninstalling those items and installs six into site-packages we’ll hit another bug where Apple puts their pre-installed stuff earlier in the sys.path than site-packages. I’ve talked to Apple about this and I’m not sure if they’re going to do anything about it or not.</p>
 <p>大致意思是: OSX EI Capitan 内置了一个叫做 <a href="https://support.apple.com/en-us/HT204899" target="_blank" rel="external">系统健全保护</a> 的保护机制，OSX EI Capitan系统已经安装了six 1.4.1，任何用户（包括root）都没有权限卸载它,而使用 pip 安装 scrapy 的时候,需要卸载系统内置的 six, 然后重新安装,因此出错</p>
 <h5 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法:"></a>解决方法:</h5><pre><code>1. 选择忽略 OS X El Capitan 系统已经安装的 six          
-`$ sudo pip install scrapy --ignore-installed six`
+$ sudo pip install scrapy --ignore-installed six
 
 2. 关闭苹果的 SIP (System Integrity Protection)
     *. 重启 Mac，按住 Command+R 键直到 Apple logo 出现，进入 Recovery Mode
@@ -934,6 +934,13 @@ github上的仓库clone到本地,在本地任意文件夹下配置好deploy参�
 
           
 
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>

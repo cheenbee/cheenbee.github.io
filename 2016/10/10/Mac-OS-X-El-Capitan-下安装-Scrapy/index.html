@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="python spider," />
 
 
 
@@ -104,16 +104,16 @@
 
 <meta name="description" content="Mac OS X El Capitan 下安装 Scrapy$ pip install scrapy安装出错: OSError: [Errno 1] Operation not permitted1234567891011121314151617181920212223242526272829The directory &amp;apos;/Users/aiyouyou/Library/Caches/pi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AiPo">
-<meta property="og:url" content="http://cheenbee.github.io/2016/10/11/Mac-OS-X-El-Capitan-下安装-Scrapy/index.html">
+<meta property="og:title" content="Mac OS X El Capitan 下安装 Scrapy">
+<meta property="og:url" content="http://cheenbee.github.io/2016/10/10/Mac-OS-X-El-Capitan-下安装-Scrapy/index.html">
 <meta property="og:site_name" content="AiPo">
 <meta property="og:description" content="Mac OS X El Capitan 下安装 Scrapy$ pip install scrapy安装出错: OSError: [Errno 1] Operation not permitted1234567891011121314151617181920212223242526272829The directory &amp;apos;/Users/aiyouyou/Library/Caches/pi">
 <meta property="og:image" content="http://obr2ozlb6.bkt.clouddn.com/14760941648778.jpg">
 <meta property="og:image" content="http://obr2ozlb6.bkt.clouddn.com/14761484635545.jpg">
 <meta property="og:image" content="http://obr2ozlb6.bkt.clouddn.com/14761484288737.jpg">
-<meta property="og:updated_time" content="2016-10-11T02:31:19.000Z">
+<meta property="og:updated_time" content="2016-10-11T02:34:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AiPo">
+<meta name="twitter:title" content="Mac OS X El Capitan 下安装 Scrapy">
 <meta name="twitter:description" content="Mac OS X El Capitan 下安装 Scrapy$ pip install scrapy安装出错: OSError: [Errno 1] Operation not permitted1234567891011121314151617181920212223242526272829The directory &amp;apos;/Users/aiyouyou/Library/Caches/pi">
 <meta name="twitter:image" content="http://obr2ozlb6.bkt.clouddn.com/14760941648778.jpg">
 
@@ -136,9 +136,9 @@
 
 
 
-  <link rel="canonical" href="http://cheenbee.github.io/2016/10/11/Mac-OS-X-El-Capitan-下安装-Scrapy/"/>
+  <link rel="canonical" href="http://cheenbee.github.io/2016/10/10/Mac-OS-X-El-Capitan-下安装-Scrapy/"/>
 
-  <title>  | AiPo </title>
+  <title> Mac OS X El Capitan 下安装 Scrapy | AiPo </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +258,7 @@
             
             
               
-                
+                Mac OS X El Capitan 下安装 Scrapy
               
             
           </h1>
@@ -270,8 +270,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-11T10:11:22+08:00" content="2016-10-11">
-              2016-10-11
+            <time itemprop="dateCreated" datetime="2016-10-10T17:00:00+08:00" content="2016-10-10">
+              2016-10-10
             </time>
           </span>
 
@@ -303,7 +303,7 @@
 <h5 id="原因"><a href="#原因" class="headerlink" title="原因:"></a>原因:</h5><p> “OSError: [Errno 1] Operation not permitted” when installing Scrapy in OSX 10.11 (El Capitan) (System Integrity Protection).<br>  This is because OS X El Capitan ships with six 1.4.1 installed already and when it attempts to uninstall it (because awscli depends on botocore, botocore depends on python-dateutil, and python-dateutil depends on six &gt;= 1.5) it doesn’t have permission to do so because System Integrity Protection doesn’t allow even root to modify those directories.<br>  Ideally, pip should just skip uninstalling those items since they aren’t installed to site-packages they are installed to a special Apple directory. However, even if pip skips uninstalling those items and installs six into site-packages we’ll hit another bug where Apple puts their pre-installed stuff earlier in the sys.path than site-packages. I’ve talked to Apple about this and I’m not sure if they’re going to do anything about it or not.</p>
 <p>大致意思是: OSX EI Capitan 内置了一个叫做 <a href="https://support.apple.com/en-us/HT204899" target="_blank" rel="external">系统健全保护</a> 的保护机制，OSX EI Capitan系统已经安装了six 1.4.1，任何用户（包括root）都没有权限卸载它,而使用 pip 安装 scrapy 的时候,需要卸载系统内置的 six, 然后重新安装,因此出错</p>
 <h5 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法:"></a>解决方法:</h5><pre><code>1. 选择忽略 OS X El Capitan 系统已经安装的 six          
-`$ sudo pip install scrapy --ignore-installed six`
+$ sudo pip install scrapy --ignore-installed six
 
 2. 关闭苹果的 SIP (System Integrity Protection)
     *. 重启 Mac，按住 Command+R 键直到 Apple logo 出现，进入 Recovery Mode
@@ -342,6 +342,12 @@
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python-spider/" rel="tag">#python spider</a>
+          
+        </div>
       
 
       
@@ -429,6 +435,13 @@
 
           
 
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>
