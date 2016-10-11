@@ -304,16 +304,16 @@
 <p><img src="http://obr2ozlb6.bkt.clouddn.com/14760941648778.jpg" alt=""></p>
 <h5 id="原因"><a href="#原因" class="headerlink" title="原因:"></a>原因:</h5><p> “OSError: [Errno 1] Operation not permitted” when installing Scrapy in OSX 10.11 (El Capitan) (System Integrity Protection).<br>  This is because OS X El Capitan ships with six 1.4.1 installed already and when it attempts to uninstall it (because awscli depends on botocore, botocore depends on python-dateutil, and python-dateutil depends on six &gt;= 1.5) it doesn’t have permission to do so because System Integrity Protection doesn’t allow even root to modify those directories.<br>  Ideally, pip should just skip uninstalling those items since they aren’t installed to site-packages they are installed to a special Apple directory. However, even if pip skips uninstalling those items and installs six into site-packages we’ll hit another bug where Apple puts their pre-installed stuff earlier in the sys.path than site-packages. I’ve talked to Apple about this and I’m not sure if they’re going to do anything about it or not.</p>
 <p>大致意思是: OSX EI Capitan 内置了一个叫做 <a href="https://support.apple.com/en-us/HT204899" target="_blank" rel="external">系统健全保护</a> 的保护机制，OSX EI Capitan系统已经安装了six 1.4.1，任何用户（包括root）都没有权限卸载它,而使用 pip 安装 scrapy 的时候,需要卸载系统内置的 six, 然后重新安装,因此出错</p>
-<h5 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法:"></a>解决方法:</h5><pre><code>1. 选择忽略 OS X El Capitan 系统已经安装的 six          
+<h5 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法:"></a>解决方法:</h5><pre><code>第一种方法: 选择忽略 OS X El Capitan 系统已经安装的 six          
 $ sudo pip install scrapy --ignore-installed six
 
-2. 关闭苹果的 SIP (System Integrity Protection)
-    *. 重启 Mac，按住 Command+R 键直到 Apple logo 出现，进入 Recovery Mode
-    *. 顶部导航栏，点击 Utilities &gt; Terminal
-    *. 在 Terminal 中输入 csrutil disable，之后回车
-    *. 重启 Mac
-    *. 重启进入MAC之后再次csrutil status 
-    *. 这时候系统会提示System Integrity Protection status: disabled.说明 SIP 功能已经被成功关闭
+第二种方法: 关闭苹果的 SIP (System Integrity Protection)
+    1. 重启 Mac，按住 Command+R 键直到 Apple logo 出现，进入 Recovery Mode
+    2. 顶部导航栏，点击 Utilities &gt; Terminal
+    3. 在 Terminal 中输入 csrutil disable，之后回车
+    4. 重启 Mac
+    5. 重启进入MAC之后再次csrutil status 
+    6. 这时候系统会提示System Integrity Protection status: disabled.说明 SIP 功能已经被成功关闭
 </code></pre><h5 id="查看是否安装成功"><a href="#查看是否安装成功" class="headerlink" title="查看是否安装成功"></a>查看是否安装成功</h5><p>输入命令: <code>$ scrapy</code> 报错: ImportError: cannot import name xmlrpc_client<br><img src="http://obr2ozlb6.bkt.clouddn.com/14761484635545.jpg" alt="">    </p>
 <ul>
 <li><p>如果你已经关闭了苹果的 SIP ,可以使用命令删除系统内置的 six ,再次重新安装</p>
