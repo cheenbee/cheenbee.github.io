@@ -423,12 +423,7 @@ $ sudo pip install scrapy --ignore-installed six
 <p>而 github 上的SDWebImage已经更新到了 3.8 版本<br><img src="http://obr2ozlb6.bkt.clouddn.com/14752193391208.jpg" alt=""></p>
 <p>原因:Cocoapods 在安装时会将第三方库的索引下载到本地 <strong>~/.cocoapods/repos/master/Specs</strong>目录下<br><img src="http://obr2ozlb6.bkt.clouddn.com/14752214374894.jpg" alt=""><br>我们在本地搜索的时候搜到只是 cocoapods 安装时下载到本地的索引,搜索不到最新版本,是因为 Cocoapods 镜像索引库更新了,而本地的索引库却没更新!<br>前往 <strong>~/.cocoapods/repos/master</strong> 目录下查看 <strong>CocoaPods-version.yml</strong> 确认本地Cocoapods的版本<br>    <code>min: 0.32.1</code><br>    <code>last: 0.39.0</code> </p>
 <p>再来到 <a href="https://github.com/CocoaPods/Specs/blob/master/CocoaPods-version.yml" target="_blank" rel="external">github上的Cocoapods版本描述</a>查看Cocoapods最新的版本描述,明显是本地的Cocoapods版本过低<br>    <img src="http://obr2ozlb6.bkt.clouddn.com/14752035139251.jpg" alt=""></p>
-<p>解决方法:<br></p>
-<ol>
-<li><a href="https://guides.cocoapods.org/terminal/commands.html#pod_repo_update" target="_blank" rel="external">更新本地索引库 </a><br><code>$ pod repo update</code>         </li>
-<li>升级 Cocoapods<br> <code>$ sudo gem update --system</code><br> <code>$ gem sources --remove https://rubygems.org/</code><br> <code>$ gem sources -a https://ruby.taobao.org/</code><br> <code>$ sudo gem install cocoapods</code><br> <code>$ pod setup</code>      </li>
-<li>卸载 重装<br><code>sudo gem uninstall cocoapods</code><br> 重复第二种方法安装Cocoapods    </li>
-</ol>
+<p>解决方法:<br><br>第一种: <a href="https://guides.cocoapods.org/terminal/commands.html#pod_repo_update" target="_blank" rel="external">更新本地索引库 </a><br><code>$ pod repo update</code><br>第二种: 升级 Cocoapods<br>    <code>$ sudo gem update --system</code><br>    <code>$ gem sources --remove https://rubygems.org/</code><br>    <code>$ gem sources -a https://ruby.taobao.org/</code><br>    <code>$ sudo gem install cocoapods</code><br>    <code>$ pod setup</code><br>第三种: 卸载 重装<br>   <code>sudo gem uninstall cocoapods</code><br>    重复第二种方法安装Cocoapods<br>第四种: <code>$ pod setup</code> </p>
 <p>再次 <code>$ pod search SDWebimage</code> 已成功搜索到 SDWebimage 3.8.1 版本<br><img src="http://obr2ozlb6.bkt.clouddn.com/14752256205791.jpg" alt=""></p>
 <h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://github.com/dabing1022/Blog/issues/3" target="_blank" rel="external">解决pod search出来的仓库版本低于github仓库版本的方法</a></p>
 <p><a href="http://stackoverflow.com/questions/16427421/how-to-remove-cocoapods-from-a-project?rq=1" target="_blank" rel="external">从项目中移除 CocoaPods</a></p>
