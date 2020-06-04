@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="苹果开发者证书,唯一标识和配置文件的作用及使用[TOC] 说明:本文将 Provisioning Profile 统一翻译为 描述文件 1. 证书 (Certificates)苹果要求开发者必须使用数字证书开发和发布 iOS 应用.安装应用到开发设备或者提交应用到 APP Store,首先必须验证苹果签发的证书,系统会通过证书识别出 app 的签发者.  根据需求选择证书的类别,开发使用选择开发证">
+<meta property="og:type" content="article">
+<meta property="og:title" content="苹果开发者证书,唯一标识和配置文件的作用及使用">
+<meta property="og:url" content="http://yoursite.com/2020/06/04/%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%8F%91%E8%80%85%E8%AF%81%E4%B9%A6,%E5%94%AF%E4%B8%80%E6%A0%87%E8%AF%86%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8%E5%8F%8A%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="星尘">
+<meta property="og:description" content="苹果开发者证书,唯一标识和配置文件的作用及使用[TOC] 说明:本文将 Provisioning Profile 统一翻译为 描述文件 1. 证书 (Certificates)苹果要求开发者必须使用数字证书开发和发布 iOS 应用.安装应用到开发设备或者提交应用到 APP Store,首先必须验证苹果签发的证书,系统会通过证书识别出 app 的签发者.  根据需求选择证书的类别,开发使用选择开发证">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-a69979db01b6e3ab.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-034b4ce9c07927fd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-ad4e790d61a0ea5e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-e2ce6b78b7dbae7f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-aa1f20201fffc843.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-2cd1131dc757235f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-105c0f9daa20bd46.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-9ef98aae3a347d50.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-fc4a198d2240d6f6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-5abdd126ab8edcfe.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-a3a8457ad1132ec7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-4755687112da8bea.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-23b45708736923f1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-3d2687b21aa570c7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-8aed1cc414340f7e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-193754e2bb542e14.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-2b4b30196eb3759e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-610fd9c7dcfa9257.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-1932c9a3094efb7a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-5a803449c9c0e7ca.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-3a884e18b5a50297.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-fecf127f361ccee4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-24c1e46fad334f31.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-2a73710154124c17.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-d240b51b26b588e7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-fa6b7d3d993f1b67.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-d919f74f045549a4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-ecdde2213f73e2ed.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-b6bcd43876c38dcb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-4e0ba25a7c0ff85d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-f558262f0beb4cdc.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-8b6560bdacc7f32d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1465527-046687d4bfba6c25.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2020-06-04T03:02:24.695Z">
+<meta property="article:modified_time" content="2020-06-04T03:02:24.695Z">
+<meta property="article:author" content="chenbing">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1465527-a69979db01b6e3ab.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+<link rel="canonical" href="http://yoursite.com/2020/06/04/%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%8F%91%E8%80%85%E8%AF%81%E4%B9%A6,%E5%94%AF%E4%B8%80%E6%A0%87%E8%AF%86%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8%E5%8F%8A%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>苹果开发者证书,唯一标识和配置文件的作用及使用 | 星尘</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">星尘</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/04/%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%8F%91%E8%80%85%E8%AF%81%E4%B9%A6,%E5%94%AF%E4%B8%80%E6%A0%87%E8%AF%86%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8%E5%8F%8A%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chenbing">
+      <meta itemprop="description" content="博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="星尘">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          苹果开发者证书,唯一标识和配置文件的作用及使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-04 11:02:24" itemprop="dateCreated datePublished" datetime="2020-06-04T11:02:24+08:00">2020-06-04</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="苹果开发者证书-唯一标识和配置文件的作用及使用"><a href="#苹果开发者证书-唯一标识和配置文件的作用及使用" class="headerlink" title="苹果开发者证书,唯一标识和配置文件的作用及使用"></a>苹果开发者证书,唯一标识和配置文件的作用及使用</h1><p>[TOC]</p>
+<h5 id="说明-本文将-Provisioning-Profile-统一翻译为-描述文件"><a href="#说明-本文将-Provisioning-Profile-统一翻译为-描述文件" class="headerlink" title="说明:本文将 Provisioning Profile 统一翻译为 描述文件"></a>说明:本文将 Provisioning Profile 统一翻译为 描述文件</h5><p><img src="http://upload-images.jianshu.io/upload_images/1465527-a69979db01b6e3ab.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="1-证书-Certificates"><a href="#1-证书-Certificates" class="headerlink" title="1. 证书 (Certificates)"></a>1. 证书 (Certificates)</h3><p>苹果要求开发者必须使用<strong>数字证书</strong>开发和发布 iOS 应用.安装应用到开发设备或者提交应用到 APP Store,首先必须验证苹果签发的证书,系统会通过证书识别出 app 的签发者.<br> <img src="http://upload-images.jianshu.io/upload_images/1465527-034b4ce9c07927fd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>根据需求选择证书的类别,开发使用选择开发证书,发布到 App Store 选择生产证书<br><img src="http://upload-images.jianshu.io/upload_images/1465527-ad4e790d61a0ea5e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1465527-e2ce6b78b7dbae7f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>手动创建证书 首先需要你在Mac本地生成一个签发证书请求文件(CSR),然后上传即可<br><img src="http://upload-images.jianshu.io/upload_images/1465527-aa1f20201fffc843.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>打开 Mac 钥匙串应用 钥匙串访问菜单选择 证书助理 -&gt; 从证书颁发机构请求证书<br><img src="http://upload-images.jianshu.io/upload_images/1465527-2cd1131dc757235f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>填入用户电子邮件地址,选择存储到磁盘<br><img src="http://upload-images.jianshu.io/upload_images/1465527-105c0f9daa20bd46.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>选择一个目录存储 CSR 文件<br><img src="http://upload-images.jianshu.io/upload_images/1465527-9ef98aae3a347d50.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>回到苹果开发者网站<br><img src="http://upload-images.jianshu.io/upload_images/1465527-fc4a198d2240d6f6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>上传刚才生成的 CSR 文件<br><img src="http://upload-images.jianshu.io/upload_images/1465527-5abdd126ab8edcfe.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1465527-a3a8457ad1132ec7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>可以看到上传成功的 CSR 文件<br><img src="http://upload-images.jianshu.io/upload_images/1465527-4755687112da8bea.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>证书已经生成,下载证书到本地,然后双击即可.<br><img src="http://upload-images.jianshu.io/upload_images/1465527-23b45708736923f1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>在钥匙串中可以看到已经安装的证书<br><img src="http://upload-images.jianshu.io/upload_images/1465527-3d2687b21aa570c7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="2-App-IDs-Identifiers"><a href="#2-App-IDs-Identifiers" class="headerlink" title="2.  App IDs (Identifiers)"></a>2.  App IDs (Identifiers)</h3><p>如果你打算使用 Game Center,内购,数据保护,iCloud等应用服务或者想让一个app使用唯一的描述文件,请使用明确的 App ID,明确的 App ID 是一个唯一的字符串并且和Xcode中项目的 Bundle ID 一致.<br>而通配 App ID 允许多款不同的 app 共同使用.<br><img src="http://upload-images.jianshu.io/upload_images/1465527-8aed1cc414340f7e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>选择你的应用想要集成的服务,可多选<br><img src="http://upload-images.jianshu.io/upload_images/1465527-193754e2bb542e14.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="3-设备-Devices"><a href="#3-设备-Devices" class="headerlink" title="3. 设备 (Devices)"></a>3. 设备 (Devices)</h3><p>在 app 上线之前,分发应用给相关人员内测,需要将相关设备的 UDID 添加到 Devices 注册.<br>注意每次注册新的 设备 UDID 后,需要在对应的 Provisioning Profile 中添加该设备.<br><img src="http://upload-images.jianshu.io/upload_images/1465527-2b4b30196eb3759e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>已添加的设备列表 前面为设备的 名称,后面为设备的 UDID<br><img src="http://upload-images.jianshu.io/upload_images/1465527-610fd9c7dcfa9257.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>UDID 的获取: </p>
+<ol>
+<li>iPhone 连接 iTunes </li>
+<li>使用<a href="https://www.pgyer.com/doc/view/udid" target="_blank" rel="noopener">蒲公英获取UDID</a> </li>
+<li>使用<a href="http://fir.im/udid" target="_blank" rel="noopener">fir.im获取UDID</a><br><img src="http://upload-images.jianshu.io/upload_images/1465527-1932c9a3094efb7a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
+</ol>
+<p>苹果允许添加的测试设备数量上限为 100, <a href="http://blog.devtang.com/2012/04/06/about-100-devices-limit/" target="_blank" rel="noopener">关于iOS测试机个数上限的详细规则</a><br>目前 fir.im 分发测试应用限制比较多,推荐<a href="http://blog.devtang.com/2015/01/22/pgy-usage-guide/" target="_blank" rel="noopener">使用蒲公英来做iOS测试应用的分发</a></p>
+<h3 id="4-描述文件-Provisioning-Profiles"><a href="#4-描述文件-Provisioning-Profiles" class="headerlink" title="4. 描述文件 (Provisioning Profiles)"></a>4. 描述文件 (Provisioning Profiles)</h3><p>描述配置文件,是 Certificate, Identifier和Devices的合集<br><img src="http://upload-images.jianshu.io/upload_images/1465527-5a803449c9c0e7ca.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>根据需求选择相应的描述配置文件类型<br><img src="http://upload-images.jianshu.io/upload_images/1465527-3a884e18b5a50297.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>选择相应的 App ID<br><img src="http://upload-images.jianshu.io/upload_images/1465527-fecf127f361ccee4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>若你刚才选择的是开发类型 Provisioning Profile,这一步苹果很人性化的只给出相应的开发证书选项<br><img src="http://upload-images.jianshu.io/upload_images/1465527-24c1e46fad334f31.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>选中你想要添加的测试机名称,没特殊要求全选即可<br><img src="http://upload-images.jianshu.io/upload_images/1465527-2a73710154124c17.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>开发类型的描述文件中包含了 App ID,证书和测试设备<br><img src="http://upload-images.jianshu.io/upload_images/1465527-d240b51b26b588e7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>生产类型的描述文件中则不含有测试设备<br><img src="http://upload-images.jianshu.io/upload_images/1465527-fa6b7d3d993f1b67.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>生成描述文件(此处为生产类型)<br><img src="http://upload-images.jianshu.io/upload_images/1465527-d919f74f045549a4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>双击下载下来的描述文件,屏幕一闪,此时描述文件就已经安装到Xcode中了<br><img src="http://upload-images.jianshu.io/upload_images/1465527-ecdde2213f73e2ed.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="PS"><a href="#PS" class="headerlink" title="PS:"></a>PS:</h3><h5 id="若希望在另一台Mac上也可以打包分发或发布应用-则需要在另一台Mac上安装描述文件和-p12-证书"><a href="#若希望在另一台Mac上也可以打包分发或发布应用-则需要在另一台Mac上安装描述文件和-p12-证书" class="headerlink" title="若希望在另一台Mac上也可以打包分发或发布应用,则需要在另一台Mac上安装描述文件和 p12 证书."></a>若希望在另一台Mac上也可以打包分发或发布应用,则需要在另一台Mac上安装描述文件和 p12 证书.</h5><p>#####如何导出 p12证书:<br>在已经安装的证书中选中想要导出的证书右击选择导出.(没有导出选项可以删除此证书,重新安装)<br><img src="http://upload-images.jianshu.io/upload_images/1465527-b6bcd43876c38dcb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>确保导出的文件格式为 p12<br><img src="http://upload-images.jianshu.io/upload_images/1465527-4e0ba25a7c0ff85d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>选择存储,将会要求你输入一个密码,在另一台Mac上安装此证书时也会被要求输入此密码来完成认证,为了省事可以不用输入<br><img src="http://upload-images.jianshu.io/upload_images/1465527-f558262f0beb4cdc.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>在另一台Mac上双击安装下图中 .p12 格式和 .mobileprovision 格式的两个文件即可<br><img src="http://upload-images.jianshu.io/upload_images/1465527-8b6560bdacc7f32d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="描述文件需要证书的支持-若你删除了描述文件中包含的证书-则该描述文件将会变成不可用无效状态"><a href="#描述文件需要证书的支持-若你删除了描述文件中包含的证书-则该描述文件将会变成不可用无效状态" class="headerlink" title="描述文件需要证书的支持,若你删除了描述文件中包含的证书,则该描述文件将会变成不可用无效状态"></a>描述文件需要证书的支持,若你删除了描述文件中包含的证书,则该描述文件将会变成不可用无效状态</h5><p><img src="http://upload-images.jianshu.io/upload_images/1465527-046687d4bfba6c25.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="参阅资料"><a href="#参阅资料" class="headerlink" title="参阅资料"></a>参阅资料</h3><p><a href="http://stackoverflow.com/a/16070915/6122246" target="_blank" rel="noopener">Code Sign Identity</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/04/Markdown%20%E8%AF%AD%E6%B3%95%E5%92%8C%20MWeb%20%E5%86%99%E4%BD%9C%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/" rel="prev" title="Markdown 语法和 MWeb 写作使用说明">
+      <i class="fa fa-chevron-left"></i> Markdown 语法和 MWeb 写作使用说明
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/04/iOS%2010%20%E9%A6%96%E6%AC%A1%E5%AE%89%E8%A3%85%E5%BA%94%E7%94%A8,%E6%8E%88%E6%9D%83%E5%85%81%E8%AE%B8%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE,%E9%A6%96%E9%A1%B5%E6%97%A0%E6%95%B0%E6%8D%AE/" rel="next" title="iOS 10 首次安装应用,授权允许使用数据,首页无数据">
+      iOS 10 首次安装应用,授权允许使用数据,首页无数据 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#苹果开发者证书-唯一标识和配置文件的作用及使用"><span class="nav-number">1.</span> <span class="nav-text">苹果开发者证书,唯一标识和配置文件的作用及使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#说明-本文将-Provisioning-Profile-统一翻译为-描述文件"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">说明:本文将 Provisioning Profile 统一翻译为 描述文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-证书-Certificates"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 证书 (Certificates)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-App-IDs-Identifiers"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.  App IDs (Identifiers)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-设备-Devices"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. 设备 (Devices)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-描述文件-Provisioning-Profiles"><span class="nav-number">1.0.4.</span> <span class="nav-text">4. 描述文件 (Provisioning Profiles)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PS"><span class="nav-number">1.0.5.</span> <span class="nav-text">PS:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#若希望在另一台Mac上也可以打包分发或发布应用-则需要在另一台Mac上安装描述文件和-p12-证书"><span class="nav-number">1.0.5.0.1.</span> <span class="nav-text">若希望在另一台Mac上也可以打包分发或发布应用,则需要在另一台Mac上安装描述文件和 p12 证书.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#描述文件需要证书的支持-若你删除了描述文件中包含的证书-则该描述文件将会变成不可用无效状态"><span class="nav-number">1.0.5.0.2.</span> <span class="nav-text">描述文件需要证书的支持,若你删除了描述文件中包含的证书,则该描述文件将会变成不可用无效状态</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参阅资料"><span class="nav-number">1.0.6.</span> <span class="nav-text">参阅资料</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">chenbing</p>
+  <div class="site-description" itemprop="description">博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">chenbing</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

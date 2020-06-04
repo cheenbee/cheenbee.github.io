@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="git 分支使用理解 HEAD 指针HEAD 指向当前分支引用的指针,也就是一个指向你的最后一次提交的指针,通常可以简单的认为 HEAD 就是你的最后一次提交的快照. Git 也是通过 HEAD 指针区分你当前在哪个分支上工作呢.       新建分支12345&#x2F;&#x2F;使用当前分支为父分支,新建名称为&quot;newBranch&quot;的分支,并将当前工作分支转换到 newB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git 分支使用   ">
+<meta property="og:url" content="http://yoursite.com/2020/06/04/git%20%E5%88%86%E6%94%AF%E4%BD%BF%E7%94%A8%20%20%20/index.html">
+<meta property="og:site_name" content="星尘">
+<meta property="og:description" content="git 分支使用理解 HEAD 指针HEAD 指向当前分支引用的指针,也就是一个指向你的最后一次提交的指针,通常可以简单的认为 HEAD 就是你的最后一次提交的快照. Git 也是通过 HEAD 指针区分你当前在哪个分支上工作呢.       新建分支12345&#x2F;&#x2F;使用当前分支为父分支,新建名称为&quot;newBranch&quot;的分支,并将当前工作分支转换到 newB">
+<meta property="article:published_time" content="2020-06-04T03:03:20.515Z">
+<meta property="article:modified_time" content="2020-06-04T03:03:20.515Z">
+<meta property="article:author" content="chenbing">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/06/04/git%20%E5%88%86%E6%94%AF%E4%BD%BF%E7%94%A8%20%20%20/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>git 分支使用    | 星尘</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">星尘</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/04/git%20%E5%88%86%E6%94%AF%E4%BD%BF%E7%94%A8%20%20%20/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chenbing">
+      <meta itemprop="description" content="博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="星尘">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          git 分支使用   
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-04 11:03:20" itemprop="dateCreated datePublished" datetime="2020-06-04T11:03:20+08:00">2020-06-04</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="git-分支使用"><a href="#git-分支使用" class="headerlink" title="git 分支使用"></a>git 分支使用</h1><h5 id="理解-HEAD-指针"><a href="#理解-HEAD-指针" class="headerlink" title="理解 HEAD 指针"></a>理解 HEAD 指针</h5><p>HEAD 指向当前分支引用的指针,也就是一个指向你的最后一次提交的指针,通常可以简单的认为 HEAD 就是你的最后一次提交的快照. Git 也是通过 HEAD 指针区分你当前在哪个分支上工作呢.      </p>
+<h5 id="新建分支"><a href="#新建分支" class="headerlink" title="新建分支"></a>新建分支</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;使用当前分支为父分支,新建名称为&quot;newBranch&quot;的分支,并将当前工作分支转换到 newBranch 分支</span><br><span class="line">$ git checkout -b newBranch</span><br><span class="line">&#96;&#96;&#96;    </span><br><span class="line"></span><br><span class="line">这相当于执行下面这两条命令</span><br></pre></td></tr></table></figure>
+<p>$ git branch newBranch<br>$ git checkout newBranch</p>
+<pre><code>
+##### 在分支上修改内容
+当你做了一些更改之后,将所做的修改提交到当前分支
+`$ git -a -m &quot;made some changes&quot;`
+##### 将分支合并到 master 分支
+1. 先转到 master 分支
+    `$ git checkout master`
+2. git merge 命令后给出将要合并到 master 分支的名称
+    `$ git merge newBranch`   
+
+##### 删除分支
+`$ git branch -d newBranch`
+
+#### 多人协同开发 (开发环境)
+由于团队只有两个人,所以我们开发环境使用 develop 分支, 线上生产环境使用 master 分支, 每发布一个新版本会给 master 分支打上 tag 用以区分对应的线上版本号
+
+1. 由管理者 使用 master 分支为父分支,新建远程开发分支 develop
+    * 从 master 分支基础上新建 develop 分支 `$ git checkout -b develop master`
+    * 推送到远程仓库 `$ git push origin develop`
+2. 协同开发者从服务器上克隆仓库,并建好 develop 分支的跟踪分支
+
+    * $ git clone ssh://user@host/path/to/repo.git
+    * $ git checkout -b develop origin/develop
+    //此时协作者已经有了 develop 分支的本地拷贝,转换 develop 分支为当前使用分支
+
+3. 当有所改动,直接在当前分支上提交变动,并推送到远程
+    * `$ git commit -a -m &quot;some changes&quot;`
+    * `$ git push origin develop`
+4. 在需要发布新版本的时候,管理者将 develop 分支合并到 master
+    * `$ git checkout master` // 转换当前分支到 master 分支
+    * `$ git merge develop`   // 合并 develop 分支到 master 分支
+    * `$ git push origin master` // 向远程仓库推送 master 更新  
+5. 为master分支打上版本标签，再将master 分支做的改动合并回 develop 分支
+    * `$ git checkout develop`
+    * `$ git merge master`
+    * `$ git push origin develop`
+
+#### 本地功能分支的使用
+当需要一段周期开发一个新功能时,建议在本地新建一个功能分支,在完成开发之后在合并
+
+1. 使用 develop 分支为父分支新建功能分支 
+    * `$ git checkout -b myfeature develop` //新建并转换到分支 &quot;myfeature&quot;
+2. 在本地分支 &quot;myfeature&quot; 提交你的更改
+3. 完成功能开发后,合并到 develop 开发分支
+    * `$ git checkout develop`
+    * `$ git merge myfeature`
+4. 完成合并后,可以将功能分支删除
+    * `$ git branch -d myfeature`
+5. 推送 develop 分支最新数据到远程仓库
+    * `$ git push origin develop`
+
+
+
+
+### 参阅 &amp; 收藏资料
+[Git 学习总集](https://github.com/xirong/my-git)
+
+[开发常用的分支模型](http://nvie.com/posts/a-successful-git-branching-model/)
+
+[Git 分支 - 远程分支](https://git-scm.com/book/zh/v1/Git-分支-远程分支)
+
+[如何用简单的语言解释 Git 的基础命令？](https://zhuanlan.zhihu.com/p/19845650)
+
+[廖雪峰的 Git 教程](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
+
+[猴子都能懂的 Git 入门](http://backlogtool.com/git-guide/cn/intro/intro1_1.html)
+
+[git - 简明指南](http://rogerdudler.github.io/git-guide/index.zh.html)
+
+[阮一峰的常用 Git 命令清单](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html)
+
+[Git Book](https://git-scm.com/book/en/v2)     
+
+[梁杰制作的 ProGit 电子书](https://github.com/numbbbbb/progit-zh-pdf-epub-mobi)
+[梁杰制作的廖雪峰 Git 教程电子书](https://github.com/numbbbbb/Git-Tutorial-By-liaoxuefeng)   
+
+
+
+</code></pre>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/04/iOS%2010%20%E9%A6%96%E6%AC%A1%E5%AE%89%E8%A3%85%E5%BA%94%E7%94%A8,%E6%8E%88%E6%9D%83%E5%85%81%E8%AE%B8%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE,%E9%A6%96%E9%A1%B5%E6%97%A0%E6%95%B0%E6%8D%AE/" rel="prev" title="iOS 10 首次安装应用,授权允许使用数据,首页无数据">
+      <i class="fa fa-chevron-left"></i> iOS 10 首次安装应用,授权允许使用数据,首页无数据
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/04/Git%20%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90%E5%90%88%E9%9B%86/" rel="next" title="Git 学习资源合集">
+      Git 学习资源合集 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#git-分支使用"><span class="nav-number">1.</span> <span class="nav-text">git 分支使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#理解-HEAD-指针"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">理解 HEAD 指针</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#新建分支"><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">新建分支</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">chenbing</p>
+  <div class="site-description" itemprop="description">博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">chenbing</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

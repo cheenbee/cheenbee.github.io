@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="发布应用到 App Store 流程[TOC] Xcode 配置生产环境 确认 app 基本信息,此处的两个版本概念需要区分开, Version 对应 iTunes Connect中的版本, Build 是构建版本  确保 Edit Scheme -&gt; Archive -&gt; Build Configuration 为 Release, 即设置打包为发布状态,其余选项不用作任何修改  B">
+<meta property="og:type" content="article">
+<meta property="og:title" content=" 发布应用到 App Store 流程">
+<meta property="og:url" content="http://yoursite.com/2020/06/04/%20%E5%8F%91%E5%B8%83%E5%BA%94%E7%94%A8%E5%88%B0%20App%20Store%20%E6%B5%81%E7%A8%8B/index.html">
+<meta property="og:site_name" content="星尘">
+<meta property="og:description" content="发布应用到 App Store 流程[TOC] Xcode 配置生产环境 确认 app 基本信息,此处的两个版本概念需要区分开, Version 对应 iTunes Connect中的版本, Build 是构建版本  确保 Edit Scheme -&gt; Archive -&gt; Build Configuration 为 Release, 即设置打包为发布状态,其余选项不用作任何修改  B">
+<meta property="og:image" content="http://maomilaoshi.top/14800439243159.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14800440011716.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14800441446913.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14800451900877.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14800465060955.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14800411860690.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14800490721908.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14800492328297.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14800492951001.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14800414111351.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14800430871993.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14792032573888.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14800574376607.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14800574705417.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14800559825875.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14792041620320.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14800356039234.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14918073552392.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14800557453606.jpg">
+<meta property="og:image" content="http://maomilaoshi.top/14800582687921.jpg">
+<meta property="article:published_time" content="2020-06-04T03:01:26.301Z">
+<meta property="article:modified_time" content="2020-06-04T03:36:31.368Z">
+<meta property="article:author" content="chenbing">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://maomilaoshi.top/14800439243159.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2020/06/04/%20%E5%8F%91%E5%B8%83%E5%BA%94%E7%94%A8%E5%88%B0%20App%20Store%20%E6%B5%81%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title> 发布应用到 App Store 流程 | 星尘</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">星尘</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/04/%20%E5%8F%91%E5%B8%83%E5%BA%94%E7%94%A8%E5%88%B0%20App%20Store%20%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chenbing">
+      <meta itemprop="description" content="博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="星尘">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+           发布应用到 App Store 流程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-06-04 11:01:26 / Modified: 11:36:31" itemprop="dateCreated datePublished" datetime="2020-06-04T11:01:26+08:00">2020-06-04</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="发布应用到-App-Store-流程"><a href="#发布应用到-App-Store-流程" class="headerlink" title="发布应用到 App Store 流程"></a>发布应用到 App Store 流程</h1><p>[TOC]</p>
+<h3 id="Xcode-配置生产环境"><a href="#Xcode-配置生产环境" class="headerlink" title="Xcode 配置生产环境"></a>Xcode 配置生产环境</h3><ul>
+<li><p>确认 app 基本信息,此处的两个版本概念需要区分开, Version 对应 iTunes Connect中的版本, Build 是构建版本<br><img src="http://maomilaoshi.top/14800439243159.jpg" alt=""></p>
+</li>
+<li><p>确保 Edit Scheme -&gt; Archive -&gt; Build Configuration 为 Release, 即设置打包为发布状态,其余选项不用作任何修改<br><img src="http://maomilaoshi.top/14800440011716.jpg" alt=""><br><img src="http://maomilaoshi.top/14800441446913.jpg" alt=""></p>
+</li>
+<li><p>Build Settings (构建设置): Provisioning Profile 选择生产环境配置文件, Code Signing Identity 中的 Release 选项选择生产证书, Debug模式不用改变,若嫌麻烦又想要确保万无一失可将所有选项都选择生产模式(配置证书可参考<a href="http://www.jianshu.com/p/27d227015e75" target="_blank" rel="noopener">此篇文章</a>)<br><img src="http://maomilaoshi.top/14800451900877.jpg" alt=""></p>
+</li>
+<li><p>选择通用 iOS 设备或真机进行打包<br><img src="http://maomilaoshi.top/14800465060955.jpg" alt=""></p>
+</li>
+</ul>
+<h2 id="上传应用程序二进制文件"><a href="#上传应用程序二进制文件" class="headerlink" title="上传应用程序二进制文件"></a>上传应用程序二进制文件</h2><h3 id="使用-Xcode-一条龙直接上传应用程序二进制文件"><a href="#使用-Xcode-一条龙直接上传应用程序二进制文件" class="headerlink" title="使用 Xcode 一条龙直接上传应用程序二进制文件"></a>使用 Xcode 一条龙直接上传应用程序二进制文件</h3><ul>
+<li><p>在上传到 App Store 之前最好先进行验证,验证通过再进行上传<br><img src="http://maomilaoshi.top/14800411860690.jpg" alt=""></p>
+</li>
+<li><p>验证通过,上传到 App Store, 根据提示完成上传步骤,选择开发者账号<br><img src="http://maomilaoshi.top/14800490721908.jpg" alt=""></p>
+</li>
+<li><p>根据提示选择上传<br><img src="http://maomilaoshi.top/14800492328297.jpg" alt=""></p>
+</li>
+<li><p>等待上传成功(上传的过程中也会进行验证)<br><img src="http://maomilaoshi.top/14800492951001.jpg" alt=""></p>
+</li>
+</ul>
+<h3 id="使用-Application-Loader-上传应用程序二进制文件"><a href="#使用-Application-Loader-上传应用程序二进制文件" class="headerlink" title="使用 Application Loader 上传应用程序二进制文件"></a>使用 <a href="http://help.apple.com/itc/apploader/#/apdATD1E927-D1E1A1303-D1E927A1126" target="_blank" rel="noopener">Application Loader</a> 上传应用程序二进制文件</h3><ul>
+<li><p>导出并保存应用 ipa 文件<br><img src="http://maomilaoshi.top/14800414111351.jpg" alt=""></p>
+</li>
+<li><p>选取导出的 ipa 文件进行上传<br><img src="http://maomilaoshi.top/14800430871993.jpg" alt=""></p>
+</li>
+<li><p>遇到一个警告通知,没有影响,直接忽略进行下一步即可完成上传<br><img src="http://maomilaoshi.top/14792032573888.jpg" alt=""></p>
+</li>
+</ul>
+<h4 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a>可能遇到的问题</h4><ul>
+<li>网络连接问题,请重试. 如重复出现此错误,建议挂个 vpn 重试,或者使用苹果官方的另一个上传工具 <a href="http://help.apple.com/itc/apploader/#/apdATD1E927-D1E1A1303-D1E927A1126" target="_blank" rel="noopener">Application Loader</a> 进行上传<br><img src="http://maomilaoshi.top/14800574376607.jpg" alt=""></li>
+</ul>
+<ul>
+<li>已经存在一个相同 build版本号文件,重复上传错误<br><img src="http://maomilaoshi.top/14800574705417.jpg" alt=""></li>
+</ul>
+<h3 id="ITunes-Connect-中的操作"><a href="#ITunes-Connect-中的操作" class="headerlink" title="ITunes Connect 中的操作"></a>ITunes Connect 中的操作</h3><ul>
+<li><p>新建版本,此时需要输入的版本号与Xcode中项目的 Version 一致即可,更新也是如此<br><img src="http://maomilaoshi.top/14800559825875.jpg" alt=""></p>
+</li>
+<li><p>上传到 App Store 完成之后等待几分钟,刷新页面可以看到选择构建版本提示<br><img src="http://maomilaoshi.top/14792041620320.jpg" alt=""></p>
+</li>
+<li><p>选择你上传的构建版本<br><img src="http://maomilaoshi.top/14800356039234.jpg" alt=""></p>
+</li>
+<li><p>填写其余相关信息就可以发布应用了<br><img src="http://maomilaoshi.top/14918073552392.jpg" alt=""></p>
+</li>
+</ul>
+<h3 id="已经验证的小疑问"><a href="#已经验证的小疑问" class="headerlink" title="已经验证的小疑问"></a>已经验证的小疑问</h3><ol>
+<li>先打包上传应用到 App Store 之后,再到 ITunes Connect 创建与之对应的版本,担心之前上传的构建版本会丢失在异次元中,而再次上传却提示此build版本已经存在<br> 答: 在ITunes Connect中构建版本无论是在打包上传之前还是之后,只要你构建的版本(version)与你打包的应用二进制文件版本一致,等待片刻,就会在选择构建版本中见到你上传的构建版本</li>
+<li>更新应用的 Version 版本号和 build 版本号必须大于之前的版本号和 build版本号即递增,否则无法新建版本更新应用  </li>
+</ol>
+<h3 id="Version-与-Build-浅谈"><a href="#Version-与-Build-浅谈" class="headerlink" title="Version 与 Build 浅谈"></a>Version 与 Build 浅谈</h3><ol>
+<li>Version 版本号建议使用 <strong>1.2.3</strong> 三段式数字进行递增,小打小闹式的改动递增第三段数字,轻微变动递增第二段数字,改头换面式的大型改动递增第一段数字</li>
+<li>Build 编译号指一次唯一编译标识,通常是一个递增整数,建议从 1 开始每构建一个构建版本 +1.一个版本号下可以有多个不同的构建版本供以选择 </li>
+<li><strong>iTunes Connect</strong> app是苹果官方提供的,可在手机上实时查看开发者应用最新信息的应用, 在 iTunes Connect 应用的设置页面可以看到其对应的 Version(Build) 版本号<br><img src="http://maomilaoshi.top/14800557453606.jpg" alt=""></li>
+</ol>
+<h4 id="PS"><a href="#PS" class="headerlink" title="PS:"></a>PS:</h4><ol>
+<li>用 altool 上传您的应用程序二进制文件, 命令行工具来验证并上传应用程序二进制文件到 App Store,<a href="http://help.apple.com/itc/apploader/#/apdATD1E53-D1E1A1303-D1E53A1126" target="_blank" rel="noopener">官方文档链接在此</a></li>
+<li>在 iTunes Connect 我的 App 价格与销售范围中可以选择将 app 下架<br><img src="http://maomilaoshi.top/14800582687921.jpg" alt=""></li>
+</ol>
+<h3 id="参阅资料"><a href="#参阅资料" class="headerlink" title="参阅资料"></a>参阅资料</h3><p><a href="https://developer.apple.com/library/content/documentation/LanguagesUtilities/Conceptual/iTunesConnect_Guide/Chapters/About.html" target="_blank" rel="noopener">About iTunes Connect</a><br><a href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppStoreDistributionTutorial/CreatingYourTeamProvisioningProfile/CreatingYourTeamProvisioningProfile.html" target="_blank" rel="noopener">Creating Your Team Provisioning Profile</a><br><a href="https://segmentfault.com/a/1190000002423661" target="_blank" rel="noopener">浅谈 iOS 版本号</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/04/%E6%96%B0%E6%B5%AA%E5%BE%AE%E5%8D%9A%E4%B8%AD%20%E5%8D%95%E5%87%BB%E9%A6%96%E9%A1%B5%20tabBarItem%20%E4%BC%9A%E6%89%A7%E8%A1%8C%E5%88%B7%E6%96%B0%E6%93%8D%E4%BD%9C/" rel="prev" title="新浪微博中 单击首页 tabBarItem 会执行刷新操作">
+      <i class="fa fa-chevron-left"></i> 新浪微博中 单击首页 tabBarItem 会执行刷新操作
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/04/UINavigationCtroller%20%E7%9A%84%20viewControllers%20%E4%B8%8E%20topViewController%20%E8%AF%A6%E8%A7%A3/" rel="next" title="UINavigationCtroller 的 viewControllers 与 topViewController 详解">
+      UINavigationCtroller 的 viewControllers 与 topViewController 详解 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#发布应用到-App-Store-流程"><span class="nav-number">1.</span> <span class="nav-text">发布应用到 App Store 流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Xcode-配置生产环境"><span class="nav-number">1.0.1.</span> <span class="nav-text">Xcode 配置生产环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传应用程序二进制文件"><span class="nav-number">1.1.</span> <span class="nav-text">上传应用程序二进制文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-Xcode-一条龙直接上传应用程序二进制文件"><span class="nav-number">1.1.1.</span> <span class="nav-text">使用 Xcode 一条龙直接上传应用程序二进制文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-Application-Loader-上传应用程序二进制文件"><span class="nav-number">1.1.2.</span> <span class="nav-text">使用 Application Loader 上传应用程序二进制文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可能遇到的问题"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">可能遇到的问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ITunes-Connect-中的操作"><span class="nav-number">1.1.3.</span> <span class="nav-text">ITunes Connect 中的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#已经验证的小疑问"><span class="nav-number">1.1.4.</span> <span class="nav-text">已经验证的小疑问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Version-与-Build-浅谈"><span class="nav-number">1.1.5.</span> <span class="nav-text">Version 与 Build 浅谈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PS"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">PS:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参阅资料"><span class="nav-number">1.1.6.</span> <span class="nav-text">参阅资料</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">chenbing</p>
+  <div class="site-description" itemprop="description">博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">chenbing</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
