@@ -5,8 +5,8 @@ git add -A
 git commit -m "添加新文档"
 git push origin vuepress
 
-git merge vuepress_static
 git checkout vuepress_static
+git merge vuepress
 
 # 确保脚本抛出遇到的错误
 set -e
