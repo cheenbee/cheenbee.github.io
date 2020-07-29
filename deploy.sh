@@ -30,4 +30,7 @@ git push -f git@github.com:cheenbee/cheenbee.github.io.git master
 # 如果发布到 https://<USERNAME>.github.io/<REPO>
 # git push -f git@github.com:<USERNAME>/<REPO>.git master:gh-pages
 
+git checkout vuepress
+git reset HEAD --hard
+
 cd -
