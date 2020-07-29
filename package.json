@@ -1,0 +1,12 @@
+{
+  "name": "bingo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/cheenbee/cheenbee.github.io.git",
+  "author": "bingo",
+  "license": "MIT",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  }
+}
