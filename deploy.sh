@@ -25,7 +25,7 @@ git add -A
 git commit -m 'vuepress deploy'
 
 # 如果发布到 https://<USERNAME>.github.io     vuepress_static分支需设置成默认主分支
-git push -f git@github.com:cheenbee/cheenbee.github.io.git vuepress_static
+git push -f git@github.com:cheenbee/cheenbee.github.io.git master
 
 # 如果发布到 https://<USERNAME>.github.io/<REPO>
 # git push -f git@github.com:<USERNAME>/<REPO>.git master:gh-pages
