@@ -48,7 +48,8 @@ module.exports = {
             collapsable: false, // 可选的, 默认值是 true,
             sidebarDepth: 1,    // 可选的, 默认值是 1
             children: [
-                '/DevOps/使用shell脚本拉取多个项目代码'
+                '/DevOps/使用shell脚本拉取多个项目代码',
+                '/DevOps/企业内部资源共享方案'
             ] 
           },
           {

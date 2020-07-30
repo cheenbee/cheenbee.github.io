@@ -1,7 +1,8 @@
 #!/usr/bin/env sh
 
 # 先将项目推送到vuepress分支
-git add -A
+git pull origin vuepress
+git add .
 git commit -m "添加新文档"
 git push origin vuepress
 
