@@ -1,6 +1,6 @@
 # flutter项目组织结构
 
-![flutter项目文件结构](/assets/images/flutter/directory_list.jpg)
+![flutter项目文件结构](../assets/images/flutter/directory_list.jpg)
 
 主要参考 flutter官方 [gallery](https://github.com/flutter/gallery) 组织结构：
 **assets/images：** 存放图片相关资源
